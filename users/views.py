@@ -38,13 +38,13 @@ def profile(request):
         form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(request.path_info)
+            return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=request.user)
     context = {'title': 'Geekshop - редактирование профиля',
                'form': form,
-               'basket': Baskets.objects.filter(user=request.user),
-               }
+               'baskets': Baskets.objects.filter(user=request.user),
+    }
     return render(request, 'users/profile.html', context)
 
 
